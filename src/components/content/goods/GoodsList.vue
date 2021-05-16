@@ -1,7 +1,6 @@
 <template>
   <div class="goods">
   <goods-list-item  v-for="(item,index) in goods" :key="index" :goodsItem=item></goods-list-item>
-
   </div>
 </template>
 
@@ -14,13 +13,13 @@ export default {
     props:{
     goods:{
     type:Array,
-    default:[],
+    default(){
+      return []
+    },
               }  
           }
         }
     
-
-
 </script>
 
 <style>

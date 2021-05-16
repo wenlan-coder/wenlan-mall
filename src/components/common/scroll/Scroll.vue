@@ -1,9 +1,10 @@
 <template>
-<div ref="wrapper" class="wrapper">
-
-        <div class="content"><slot></slot></div>
- 
+<div ref="wrapper">
+<div class="content">
+    <slot></slot>
 </div>
+</div>
+ 
   
 </template>
 
@@ -27,7 +28,7 @@ export default {
             default:false,
             
         },
-        goods:{
+        data:{
             type:Array,
             default:null,
         }
@@ -100,8 +101,8 @@ export default {
     },
     //性能优化，watch全局监听，更新30条数据后refresh
     watch:{
-        goods(){
-            console.log(this.goods)
+        data(){
+            console.log(this.data)
             setTimeout(()=>{
                 this.refresh();
             },this.refreshDelay)

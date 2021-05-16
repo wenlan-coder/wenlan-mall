@@ -1,13 +1,11 @@
 <template>
   <div class="goods-list-item" @click="clickDetail">
-       <img :src="goodsItem.show.img" alt="" @load="imgLoad"/>
+    <img :src="resImage" alt="" @load="imgLoad">
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
       <span class="collect">{{ goodsItem.cfav }}</span>
     </div>
-   
-  
   </div>
 </template>
 
@@ -19,6 +17,11 @@ export default {
       default: {},
     },
   },
+  computed:{
+    resImage(){
+      return this.goodsItem.image ||this.goodsItem.show.img;
+    }
+  },
   data(){
     return {
       iid:null,
@@ -27,23 +30,25 @@ export default {
   },
     methods:{
     imgLoad(){
-    this.$bus.$emit('imgLoad')
-    },
+      console.log("goodslist组件里面的图片监听");
+      // if(this.$route.path.indexOf('/home')){
+      //   this.$bus.$emit('homeImgLoad')}
+      //   else if(this.$route.path.indexOf('/detail')){
+      //     this.$bus.$emit('detailImgLoad') 
+      //   }
+       this.$bus.$emit("ImgLoad")
+      },
     clickDetail(){
     this.$router.push({
       name:'detail',
       params:{
         iid:this.goodsItem.iid,
-                                                                                                                                                          
-       
-
-      }
+}
     })
     },
   }
-};
+}
 </script>
-
 <style>
 .goods-list-item {
   position: relative;
@@ -83,6 +88,6 @@ export default {
   width: 14px;
   height: 14px;
   background: url("~assets/img/common/collect.svg") 0px 0/14px 14px;
-  left: -15px;
+  left:-15px;
 }
 </style>

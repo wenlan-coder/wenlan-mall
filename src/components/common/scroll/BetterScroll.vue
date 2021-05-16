@@ -127,4 +127,5 @@
         }, this.refreshDelay)
       }
     }
+  }
 </script>

@@ -9,14 +9,14 @@
     @tab-current-index="tabcurrent"
     ref="tabcontrol1"
     ></tab-bar-control>
-    <scroll class="content"
+    <scroll class="wrapper"
     ref="scroll"
     :probe-type="3"
     :pull-up-load="true"
     @scroll="position"
     @pullingUp="pullingUp"
-    :goods=goods[currentType].list>
-        <home-carousel :banners="banners" @carouselimg="carouselImg"></home-carousel>
+    :data=goods[currentType].list>
+    <home-carousel :banners="banners" @carouselimg="carouselImg"></home-carousel>
     <home-recommend :recommends="recommends"></home-recommend>
     <home-feature-view></home-feature-view>
     <tab-bar-control
@@ -32,8 +32,7 @@
           <div v-else class="after-trigger">
             <span class="pullup-txt">Loading...</span>
           </div>
-        </div>
-  
+        </div>  
     </scroll>
     <back-top @click.native="backtop" v-show="isShowBackTop"></back-top>
     
@@ -68,8 +67,6 @@ export default {
     HomeCarousel,
     HomeRecommend,
     HomeFeatureView,
- 
-    
   },
   data() {
     return {
@@ -87,7 +84,7 @@ export default {
       isLoad:false,
       isTop:false, //是否吸顶
       tabOffSetTop:'',
-      ScrollY:'' //当前滚动高度
+      ScrollY:'', //当前滚动高度
     };
   },
   created() {
@@ -95,23 +92,19 @@ export default {
     this.getGoodsList("pop");
     this.getGoodsList("new");
     this.getGoodsList("sell");
-  
+
   },
   mounted(){
-    // const refresh=debounce(this.$refs.scroll.refresh(),1000)
-    //     //goodsitem监听函数完成
-    //     //性能优化，防抖
-    // this.$bus.$on('imgLoad',()=>{
-    //   // console.log('test');
-    //   refresh()
-      
-  
-    // })
-
-    
-  
-
-    
+    //goodsitem监听函数完成
+    //性能优化，防抖
+    const refresh=debounce(this.$refs.scroll.refresh(),1000)
+    //   this.homeImgListener=()=>{
+    // this.$refs.scroll.refresh();
+    // }
+    // this.$bus.$on("ImgLoad",this.homeImgListener)
+    this.$bus.$on("ImgLoad",()=>{
+    refresh();
+    })
   },
   //home离开记录当前位置
   activated(){
@@ -123,7 +116,8 @@ export default {
     // console.log('deavtated');
     this.ScrollY = this.$refs.scroll.getScrollY()
     // console.log(this.ScrollY);
-
+    //移除事件监听器
+    // this.$bus.$off("ImgLoad",this.homeImgListener)
   },
   // updated(){
   //   this.$refs.scroll.refresh();   //解决刷新失去滚动
@@ -172,7 +166,6 @@ export default {
       // console.log(position);
       //isfixed，是否吸顶
       this.isTop = -(position.y)>this.tabOffSetTop
-   
     },
 
     
@@ -215,7 +208,7 @@ export default {
   color: aliceblue;
   position: fixed;
 }
-.content{
+.wrapper{
   position:absolute;
   top: 48px;
   bottom: 49px;
@@ -228,5 +221,4 @@ export default {
     text-align:center;
     color: #999;
     }
-
 </style>
