@@ -105,7 +105,7 @@ export default {
     flex-grow: 1;
     flex-shrink: 1;
     padding: 5px  5px 0 2.5px;
-    width: 100px;
-    height: 100px;
+    width: 33.33%;
+    height: 127px;
 }
 </style>

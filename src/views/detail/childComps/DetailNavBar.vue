@@ -16,14 +16,15 @@ export default {
   },
   data(){
     return{
-      titles:['商品','参数','评论','讨论'],
+      titles:['商品','参数','评论','推荐'],
       currentIndex:0,
     }
   },
   methods:{
     titleClick(index){
     // console.log(index);
-    this.currentIndex=index
+    this.currentIndex=index;
+    this.$emit("titleCli",index);
     },
     backHome(){
       this.$router.back()

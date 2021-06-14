@@ -40,19 +40,19 @@
 </template>
 
 <script>
+// import {debounce} from '@/common/utils.js'
 import NavBar from "components/common/navbar/NavBar";
 import TabBarControl from "components/content/tabBarControl/TabBarControl";
 import GoodsList from "components/content/goods/GoodsList";
 import Scroll from 'components/common/scroll/Scroll'
 import BackTop from 'components/content/backTop/BackTop'
 
-
 import HomeCarousel from "./childCops/HomeCarousel.vue";
 import HomeRecommend from "./childCops/HomeRecommend.vue";
 import HomeFeatureView from "./childCops/HomeFeatureView";
 
 import { getHomeMultidata, getGoodsList } from "network/home";
-import {debounce} from '@/common/utils.js'
+
 
 
 
@@ -79,12 +79,13 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      isShowBackTop:true,
+      isShowBackTop:false,
       isPullUpLoad:false,
       isLoad:false,
       isTop:false, //是否吸顶
       tabOffSetTop:'',
       ScrollY:'', //当前滚动高度
+      homeImgListener:null,
     };
   },
   created() {
@@ -97,18 +98,18 @@ export default {
   mounted(){
     //goodsitem监听函数完成
     //性能优化，防抖
-    const refresh=debounce(this.$refs.scroll.refresh(),1000)
-    //   this.homeImgListener=()=>{
-    // this.$refs.scroll.refresh();
-    // }
-    // this.$bus.$on("ImgLoad",this.homeImgListener)
-    this.$bus.$on("ImgLoad",()=>{
-    refresh();
-    })
+    // const refresh=debounce(this.$refs.scroll.refresh(),1000)
+    this.homeImgListener=()=>{
+    // console.log("进入到组件");
+    // console.log(this);
+    this.$refs.scroll.refresh();
+    }
+    this.$bus.$on("ImgLoad",this.homeImgListener)
+    
   },
   //home离开记录当前位置
   activated(){
-    // console.log('activated');
+    console.log('activated');
     this.$refs.scroll.scrollTo(0,this.ScrollY,0)  //激活回到当前位置
     this.$refs.scroll.refresh();
   },
@@ -116,8 +117,9 @@ export default {
     // console.log('deavtated');
     this.ScrollY = this.$refs.scroll.getScrollY()
     // console.log(this.ScrollY);
-    //移除事件监听器
-    // this.$bus.$off("ImgLoad",this.homeImgListener)
+      //移除事件监听器
+      console.log("离开时取消imglaod监听");
+     this.$bus.$off("ImgLoad",this.homeImgListener)
   },
   // updated(){
   //   this.$refs.scroll.refresh();   //解决刷新失去滚动
@@ -145,6 +147,7 @@ export default {
       this.$refs.tabcontrol2.currentIndex=index;
       this.$refs.tabcontrol1.currentIndex=index;
     },
+    //回到顶部
     backtop(){
       this.$refs.scroll.scrollTo(0,0);
     },
@@ -162,8 +165,9 @@ export default {
       
     },
     position(position){
+      //计算是否显示回答顶部
       this.isShowBackTop = -(position.y)>1000
-      // console.log(position);
+      // console.log(position.y);
       //isfixed，是否吸顶
       this.isTop = -(position.y)>this.tabOffSetTop
     },

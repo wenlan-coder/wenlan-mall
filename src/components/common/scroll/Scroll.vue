@@ -80,7 +80,6 @@ export default {
         //代理scrollto方法
         scrollTo(x,y,time=500){
             this.scroll&&this.scroll.scrollTo(x,y,time)
-
         },
         //代理refresh方法
         refresh(){

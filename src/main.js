@@ -4,6 +4,7 @@ import router from './router'
 import elementUi from 'element-ui'
 import  'element-ui/lib/theme-chalk/index.css'  //Element UI样式
 import VueAwesomeSwiper from 'vue-awesome-swiper' 
+import store from './store/index'
 import 'swiper/css/swiper.css'
 Vue.prototype.$bus = new Vue()  //事件总线bus，进行简单同组件传值
 Vue.use(elementUi)  //使用element-ui组件
@@ -23,5 +24,6 @@ Vue.filter('dateFormat', function(originVal) {
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

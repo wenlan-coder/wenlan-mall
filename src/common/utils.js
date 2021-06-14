@@ -4,7 +4,7 @@ export function debounce(fn,delay){
     return function(...args){
         if(timer) clearTimeout(timer)
         timer=setTimeout(()=> {
-            fn.apply(this,args)
+            fn(...args)
         },delay);
     }
 }

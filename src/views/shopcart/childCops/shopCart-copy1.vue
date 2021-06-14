@@ -26,7 +26,7 @@
   >
   <!-- 计步器添加商品数量 -->
   <template #num>
-    <van-stepper v-model="item.count"  @change="onChange($event,item)"/>
+    <van-stepper v-model="item.count" />
   </template>
 
   <template slot="thumb"> 
@@ -61,18 +61,6 @@ import { Checkbox, CheckboxGroup,Card,SwipeCell,Button,Stepper,SubmitBar, Empty}
 import { Image as VanImage } from 'vant';
 export default {
     methods:{
-      onChange($event,index){
-        // console.log($event);
-        // console.log(index);
-        //   let ind =this.cardList.findIndex((item)=>{
-        //       return item.iid===index.iid});
-        //  console.log(ind);
-        this.changeCount(index);
-        
-      },
-      //改变vuexlim商品数量
-      //get 别人传递给他的值，
-      //set 给别人设置的时候 newval为计算属性改变后的值
       //点击全选按钮
       checkAll(){
         //第一种实现方法利用vant checkbox toggle函数
@@ -106,7 +94,7 @@ export default {
         this.totalPrice = totalPrice * 100;
     },
     //辅助函数
-    ...mapMutations(['del','changeCount'])
+    ...mapMutations(['del'])
   },
   components:{
     Scroll,
@@ -126,7 +114,6 @@ export default {
       checkgroupList:[],
       cardList:this.$store.state.cardList,
       totalPrice:0,
-      value:''
     }
   },
   computed:{

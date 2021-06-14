@@ -122,9 +122,6 @@ export default {
   },
   data() {
     return {
-   
-     
-     
     }
 
   },
@@ -141,7 +138,7 @@ export default {
   overflow-y:scroll ;
 } */
 .content{
-  height: 150px;
+  height:calc( 100% - 48px - 49px);
   overflow: hidden;
   background-color: aquamarine;
 }

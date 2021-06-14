@@ -30,7 +30,7 @@ export default {
   },
     methods:{
     imgLoad(){
-      console.log("goodslist组件里面的图片监听");
+     
       // if(this.$route.path.indexOf('/home')){
       //   this.$bus.$emit('homeImgLoad')}
       //   else if(this.$route.path.indexOf('/detail')){

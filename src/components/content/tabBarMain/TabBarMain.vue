@@ -17,6 +17,7 @@
        <img src="~assets/img/tabbar/shopcart_active.svg" alt=""  slot="item-icon-active">
       <div slot="item-text">购物车</div>
     </tab-bar-item>
+
     <tab-bar-item path='/profile'>
        <img src="~assets/img/tabbar/profile.svg" alt=""  slot="item-icon">
        <img src="~assets/img/tabbar/profile_active.svg" alt=""  slot="item-icon-active">
@@ -29,11 +30,12 @@
 <script>
 import TabBar from '../../common/tabbar/TabBar'
 import TabBarItem from '../../common/tabbar/TabBarItem'
-
+import { Badge } from 'vant';
 export default {
     components:{
         TabBar,
         TabBarItem,
+        [Badge.name]:Badge,
     }
 
 
