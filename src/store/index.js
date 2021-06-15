@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+//import vuex 存储插件
+import VuexPersist from 'vuex-persist'
 //安装插件
 Vue.use(Vuex)
 //创建store对象
@@ -20,6 +22,11 @@ const store =new Vuex.Store({
     mutations,
     //业务逻辑代码，异步代码都在actions
     actions,
+    plugins: [
+        new VuexPersist({
+           storage: window.localStorage,
+        }).plugin,
+     ]
 
 })
 //挂在到vue实例上
